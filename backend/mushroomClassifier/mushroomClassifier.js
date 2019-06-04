@@ -42,8 +42,8 @@ exports.learnAndPredict = () => {
             net.trainAsync(currentMushroomClassifier.trainData, {
               iterations: 20000,
               errorThresh: 0.005,
-              learningRate: 0.4,
-              timeout: 180000,
+              learningRate: 0.3,
+              timeout: 1000, // 150000
             }).then((res) => {
               const output = net.run(
                   currentMushroomClassifier.trainData[0].input

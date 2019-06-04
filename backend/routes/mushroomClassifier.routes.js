@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); 
-const lockerEventCtrl = require('../controllers/lockerMsgEvent.controller');
+const mushroomEventCrtl = require('../controllers/mushroomClassifier.controller');
 
-router.post('/mushroomClassifier/', lockerEventCtrl.sendRegistrationActivationEmail);
+router.post('/mushroomClassifier', mushroomEventCrtl.classifyMushRoom);
 
 module.exports = router;

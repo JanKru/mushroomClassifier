@@ -10,7 +10,8 @@
   "rules": {
       "semi": "error",
       "no-console": "off",
-      "max-len": ["error", { "ignoreStrings": true }]
+      "max-len": ["error", { "ignoreStrings": true }],
+      "linebreak-style": ["error", "windows"]
   },
   "env": {
       "es6": true,

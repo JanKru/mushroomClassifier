@@ -37,9 +37,9 @@ npm install angular -g
 ```sh
 git clone https://github.com/JanKru/mushroomClassifier.git
 ```
-2. Navigate to mushroomClassifier/server
+2. Navigate to mushroomClassifier/backend
 ```sh
-cd ./mushroomClassifier/server
+cd ./mushroomClassifier/backend
 ```
 4. Create a .env-file
 ```JS

@@ -3,26 +3,27 @@ const config = require('./config');
 
 const {format} = winston;
 const {combine, timestamp, simple, printf, label} = format;
-const colorizer = winston.format.colorize();
 let logger = {};
+
+const loggerFormat = printf((info) => {
+  return `[${info.timestamp}] [${info.label}] ${info.message}`;
+});
 
 winston.loggers.add('console', {
   level: 'silly',
   format: combine(
+
       label({label: 'dev'}),
+      format.colorize({all: true}),
+      format.splat(),
+      format.simple(),
       timestamp({
         format: 'YYYY-MM-DD HH:mm:ss',
       }),
-      simple(),
-      printf((msg) =>
-        colorizer.colorize(
-            msg.level,
-            `${msg.timestamp} ${msg.level}: ${msg.message}`
-        )
-      )
+      loggerFormat
   ),
   transports: [
-    new winston.transports.Console({}),
+    new winston.transports.Console(),
   ],
 });
 

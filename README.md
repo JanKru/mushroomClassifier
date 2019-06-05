@@ -6,10 +6,6 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
 
 
 ## About The Project
@@ -64,3 +60,8 @@ npm install
 
 Start the server (node index.js) and frontend (ng serve -o) 
 
+When your work on Mac your linter may marks the linebreaks. Go to .eslintrc and change linebreak style to unix
+
+```sh
+ "linebreak-style": ["error", "unix"]
+ ```

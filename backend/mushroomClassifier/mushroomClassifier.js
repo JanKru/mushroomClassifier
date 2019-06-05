@@ -3,10 +3,11 @@ const brain = require('brain.js');
 const fs = require('fs');
 const parse = require('csv-parse');
 const logger = require('../config/log');
-const csvAttributeParser = require('./csvAttributeParser');
+const csvRowParser = require('./csvRowParser');
 const currentMushroomClassifier = {
   trainDataPath: undefined,
   trainData: [],
+  currentNN: undefined,
 };
 
 
@@ -19,9 +20,9 @@ exports.setTrainDataPath = (pathToData) => {
   }
 };
 
-exports.learnAndPredict = () => {
+exports.learn = () => {
   if (typeof currentMushroomClassifier.trainDataPath !== 'undefined') {
-    logger.warn(
+    logger.info(
         'the neural network is just learning that may take some time (max. 1 min => timeout)'
     );
     // TODO: Cross-validation would be a good idea
@@ -33,7 +34,7 @@ exports.learnAndPredict = () => {
             skip_empty_lines: true,
           })).on('data', function(csvrow) {
             currentMushroomClassifier.trainData.push(
-                csvAttributeParser.parseCsvRow(csvrow)
+                csvRowParser.parseCsvRow(csvrow)
             );
           }).on('end', function() {
             const net = new brain.NeuralNetwork({
@@ -45,15 +46,16 @@ exports.learnAndPredict = () => {
               learningRate: 0.3,
               timeout: 1000, // 150000
             }).then((res) => {
+              currentMushroomClassifier.currentNN = net;
+              /**
               const output = net.run(
                   currentMushroomClassifier.trainData[0].input
-              );
-              logger.info('NN is trained result for data[0] %o', output);
+              );*/
               logger.info('NN info: %o', res);
               if (res.iterations < 150) {
                 logger.warn('number of Iterations is really low, maybe try again');
               }
-              resolve(output);
+              resolve(currentMushroomClassifier.currentNN);
             }).catch((err) => {
               reject(err);
             });
@@ -64,7 +66,20 @@ exports.learnAndPredict = () => {
   }
 };
 
-exports.getCurrentMushroomClassifier= () => {
+exports.predict = (valueToPredict) => {
+  return new Promise(function(resolve, reject) {
+    if (typeof valueToPredict !== 'undefined') {
+      const output = currentMushroomClassifier.currentNN.run(
+          valueToPredict
+      );
+      resolve(output);
+    } else {
+      reject(new Error('valueToPredict is undefined'));
+    }
+  });
+};
+
+exports.getCurrentMushroomClassifier = () => {
   return currentMushroomClassifier;
 };
 

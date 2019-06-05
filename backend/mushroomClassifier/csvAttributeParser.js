@@ -1,14 +1,14 @@
-const getClass = (attributeToParse) => {
+exports.getClass = (attributeToParse) => {
   if (attributeToParse === 'e') {
     return 0;
   } else if (attributeToParse === 'p') {
     return 1;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getCapShape = (attributeToParse) => {
+exports.getCapShape = (attributeToParse) => {
   if (attributeToParse === 'b') {
     return 0;
   } else if (attributeToParse === 'c') {
@@ -22,11 +22,11 @@ const getCapShape = (attributeToParse) => {
   } else if (attributeToParse === 's') {
     return 5;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getCapSurface = (attributeToParse) => {
+exports.getCapSurface = (attributeToParse) => {
   if (attributeToParse === 'f') {
     return 0;
   } else if (attributeToParse === 'g') {
@@ -36,11 +36,11 @@ const getCapSurface = (attributeToParse) => {
   } else if (attributeToParse === 's') {
     return 3;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getCapColor = (attributeToParse) => {
+exports.getCapColor = (attributeToParse) => {
   if (attributeToParse === 'n') {
     return 0;
   } else if (attributeToParse === 'b') {
@@ -62,21 +62,21 @@ const getCapColor = (attributeToParse) => {
   } else if (attributeToParse === 'y') {
     return 9;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getBruises = (attributeToParse) => {
+exports.getBruises = (attributeToParse) => {
   if (attributeToParse === 't') {
     return 0;
   } else if (attributeToParse === 'f') {
     return 1;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getOdor = (attributeToParse) => {
+exports.getOdor = (attributeToParse) => {
   if (attributeToParse === 'a') {
     return 0;
   } else if (attributeToParse === 'l') {
@@ -96,11 +96,11 @@ const getOdor = (attributeToParse) => {
   } else if (attributeToParse === 's') {
     return 8;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getGillAttachment = (attributeToParse) => {
+exports.getGillAttachment = (attributeToParse) => {
   if (attributeToParse === 'a') {
     return 0;
   } else if (attributeToParse === 'd') {
@@ -110,11 +110,11 @@ const getGillAttachment = (attributeToParse) => {
   } else if (attributeToParse === 'n') {
     return 3;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getGillSpacing = (attributeToParse) => {
+exports.getGillSpacing = (attributeToParse) => {
   if (attributeToParse === 'c') {
     return 0;
   } else if (attributeToParse === 'w') {
@@ -122,21 +122,21 @@ const getGillSpacing = (attributeToParse) => {
   } else if (attributeToParse === 'd') {
     return 2;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getGillSize = (attributeToParse) => {
+exports.getGillSize = (attributeToParse) => {
   if (attributeToParse === 'b') {
     return 0;
   } else if (attributeToParse === 'n') {
     return 1;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getGillColor = (attributeToParse) => {
+exports.getGillColor = (attributeToParse) => {
   if (attributeToParse === 'k') {
     return 0;
   } else if (attributeToParse === 'n') {
@@ -162,21 +162,21 @@ const getGillColor = (attributeToParse) => {
   } else if (attributeToParse === 'y') {
     return 11;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getStalkShape = (attributeToParse) => {
+exports.getStalkShape = (attributeToParse) => {
   if (attributeToParse === 'e') {
     return 0;
   } else if (attributeToParse === 't') {
     return 1;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getStalkRoot = (attributeToParse) => {
+exports.getStalkRoot = (attributeToParse) => {
   if (attributeToParse === 'b') {
     return 0;
   } else if (attributeToParse === 'c') {
@@ -194,11 +194,11 @@ const getStalkRoot = (attributeToParse) => {
   } else if (attributeToParse === '?') {
     return 7;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getStalkSurfaceRing = (attributeToParse) => {
+exports.getStalkSurfaceRing = (attributeToParse) => {
   if (attributeToParse === 'f') {
     return 0;
   } else if (attributeToParse === 'y') {
@@ -208,11 +208,11 @@ const getStalkSurfaceRing = (attributeToParse) => {
   } else if (attributeToParse === 's') {
     return 3;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getStalkColorRing = (attributeToParse) => {
+exports.getStalkColorRing = (attributeToParse) => {
   if (attributeToParse === 'n') {
     return 0;
   } else if (attributeToParse === 'b') {
@@ -232,21 +232,21 @@ const getStalkColorRing = (attributeToParse) => {
   } else if (attributeToParse === 'y') {
     return 8;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getVeilType = (attributeToParse) => {
+exports.getVeilType = (attributeToParse) => {
   if (attributeToParse === 'p') {
     return 0;
   } else if (attributeToParse === 'u') {
     return 1;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getVeilColor = (attributeToParse) => {
+exports.getVeilColor = (attributeToParse) => {
   if (attributeToParse === 'n') {
     return 0;
   } else if (attributeToParse === 'o') {
@@ -256,11 +256,11 @@ const getVeilColor = (attributeToParse) => {
   } else if (attributeToParse === 'y') {
     return 3;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getRingNumber = (attributeToParse) => {
+exports.getRingNumber = (attributeToParse) => {
   if (attributeToParse === 'n') {
     return 0;
   } else if (attributeToParse === 'o') {
@@ -268,11 +268,11 @@ const getRingNumber = (attributeToParse) => {
   } else if (attributeToParse === 't') {
     return 2;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getRingType = (attributeToParse) => {
+exports.getRingType = (attributeToParse) => {
   if (attributeToParse === 'c') {
     return 0;
   } else if (attributeToParse === 'e') {
@@ -290,11 +290,11 @@ const getRingType = (attributeToParse) => {
   } else if (attributeToParse === 'z') {
     return 7;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getSporePrintColor = (attributeToParse) => {
+exports.getSporePrintColor = (attributeToParse) => {
   if (attributeToParse === 'k') {
     return 0;
   } else if (attributeToParse === 'n') {
@@ -314,11 +314,11 @@ const getSporePrintColor = (attributeToParse) => {
   } else if (attributeToParse === 'y') {
     return 8;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getPopulation = (attributeToParse) => {
+exports.getPopulation = (attributeToParse) => {
   if (attributeToParse === 'a') {
     return 0;
   } else if (attributeToParse === 'c') {
@@ -332,11 +332,11 @@ const getPopulation = (attributeToParse) => {
   } else if (attributeToParse === 'y') {
     return 5;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-const getHabitat = (attributeToParse) => {
+exports.getHabitat = (attributeToParse) => {
   if (attributeToParse === 'g') {
     return 0;
   } else if (attributeToParse === 'l') {
@@ -352,44 +352,8 @@ const getHabitat = (attributeToParse) => {
   } else if (attributeToParse === 'd') {
     return 6;
   } else {
-    throw new Error('Parameter can not be parsed');
+    throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }
 };
 
-/**
- * parses the origin csv data to brain.js format
- * @param {CsvRow} row row of the train-data-csv-file
- * @return {object} object in brain.js required form
- */
-exports.parseCsvRow = (row) => {
-  // TODO: reg-Ex replace - with _ would be nicer
-  return {
-    input: {
-      cap_shape: getCapShape(row['cap-shape']),
-      cap_surface: getCapSurface(row['cap-surface']),
-      cap_color: getCapColor(row['cap-color']),
-      bruises: getBruises(row['bruises']),
-      odor: getOdor(row['odor']),
-      gill_attachment: getGillAttachment(row['gill-attachment']),
-      gill_spacing: getGillSpacing(row['gill-spacing']),
-      gill_size: getGillSize(row['gill-size']),
-      gill_color: getGillColor(row['gill-color']),
-      stalk_shape: getStalkShape(row['stalk-shape']),
-      stalk_root: getStalkRoot(row['stalk-root']),
-      stalk_surface_above_ring: getStalkSurfaceRing(row['stalk-surface-above-ring']),
-      stalk_surface_below_ring: getStalkSurfaceRing(row['stalk-surface-below-ring']),
-      stalk_color_above_ring: getStalkColorRing(row['stalk-color-above-ring']),
-      stalk_color_below_ring: getStalkColorRing(row['stalk-color-below-ring']),
-      veil_type: getVeilType(row['veil-type']),
-      veil_color: getVeilColor(row['veil-color']),
-      ring_number: getRingNumber(row['ring-number']),
-      ring_type: getRingType(row['ring-type']),
-      spore_print_color: getSporePrintColor(row['spore-print-color']),
-      population: getPopulation(row['population']),
-      habitat: getHabitat(row['habitat']),
-    },
-    output: {
-      class: getClass(row['class']),
-    },
-  };
-};
+

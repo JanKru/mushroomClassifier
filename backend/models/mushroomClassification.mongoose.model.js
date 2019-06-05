@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const csvAttributeParser = require('../mushroomClassifier/csvAttributeParser');
 
 const mushroomClassification = new Schema({
   date: String,
@@ -29,5 +30,33 @@ const mushroomClassification = new Schema({
     habitat: String,
   },
 });
+
+mushroomClassification.methods.getNumberRepresentation =
+(objectToTransform) => {
+  return {
+    cap_shape: csvAttributeParser.getCapShape(objectToTransform['cap_shape']),
+    cap_surface: csvAttributeParser.getCapSurface(objectToTransform['cap_surface']),
+    cap_color: csvAttributeParser.getCapColor(objectToTransform['cap_color']),
+    bruises: csvAttributeParser.getBruises(objectToTransform['bruises']),
+    odor: csvAttributeParser.getOdor(objectToTransform['odor']),
+    gill_attachment: csvAttributeParser.getGillAttachment(objectToTransform['gill_attachment']),
+    gill_spacing: csvAttributeParser.getGillSpacing(objectToTransform['gill_spacing']),
+    gill_size: csvAttributeParser.getGillSize(objectToTransform['gill_size']),
+    gill_color: csvAttributeParser.getGillColor(objectToTransform['gill_color']),
+    stalk_shape: csvAttributeParser.getStalkShape(objectToTransform['stalk_shape']),
+    stalk_root: csvAttributeParser.getStalkRoot(objectToTransform['stalk_root']),
+    stalk_surface_above_ring: csvAttributeParser.getStalkSurfaceRing(objectToTransform['stalk_surface_above_ring']),
+    stalk_surface_below_ring: csvAttributeParser.getStalkSurfaceRing(objectToTransform['stalk_surface_below_ring']),
+    stalk_color_above_ring: csvAttributeParser.getStalkColorRing(objectToTransform['stalk_color_above_ring']),
+    stalk_color_below_ring: csvAttributeParser.getStalkColorRing(objectToTransform['stalk_color_below_ring']),
+    veil_type: csvAttributeParser.getVeilType(objectToTransform['veil_type']),
+    veil_color: csvAttributeParser.getVeilColor(objectToTransform['veil_color']),
+    ring_number: csvAttributeParser.getRingNumber(objectToTransform['ring_number']),
+    ring_type: csvAttributeParser.getRingType(objectToTransform['ring_type']),
+    spore_print_color: csvAttributeParser.getSporePrintColor(objectToTransform['spore_print_color']),
+    population: csvAttributeParser.getPopulation(objectToTransform['population']),
+    habitat: csvAttributeParser.getHabitat(objectToTransform['habitat']),
+  };
+};
 
 module.exports = mongoose.model('mushroomClassification', mushroomClassification);

@@ -22,7 +22,7 @@ const schema = {
     stalk_surface_below_ring: Joi.string().min(1).max(1).valid('f', 'y', 'k', 's'),
     stalk_color_above_ring: Joi.string().valid('n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y'),
     stalk_color_below_ring: Joi.string().valid('n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y'),
-    veil_type: Joi.string().valid('n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y'),
+    veil_type: Joi.string().valid('p', 'u'),
     veil_color: Joi.string().valid('n', 'o', 'w', 'y'),
     ring_number: Joi.string().valid('n', 'o', 't'),
     ring_type: Joi.string().valid('c', 'e', 'f', 'l', 'n', 'p', 's', 'z'),

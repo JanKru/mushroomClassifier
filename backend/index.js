@@ -6,7 +6,7 @@ const logger = require('./config/log');
 const mushroomClassifier = require('./mushroomClassifier/mushroomClassifier');
 
 mushroomClassifier.setTrainDataPath('./mushroomClassifier/mushrooms.csv');
-mushroomClassifier.learnAndPredict({cap_shape: 'x', cap_surface: 's', cap_color: 'n'}).then(function(res) {
+mushroomClassifier.learn().then((res) => {
   // module.parent check is required to support mocha watch
   // src: https://github.com/mochajs/mocha/issues/1912
   if (!module.parent) {
@@ -14,6 +14,7 @@ mushroomClassifier.learnAndPredict({cap_shape: 'x', cap_surface: 's', cap_color:
       logger.info(`server started on port ${config.port} (${config.env})`);
     });
     require('./config/mongoose');
+    // console.log(mushroomClassifier.predict(), 'from index');
   }
 }, function(error) {
   logger.warn('Failed!', error);

@@ -4,3 +4,14 @@
 @import '~@angular/material/theming';
 // Define a mixin that accepts a theme and outputs the color styles for the component.
 @import './customTheme.scss';
+
+// turns app-root to fullscreen
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

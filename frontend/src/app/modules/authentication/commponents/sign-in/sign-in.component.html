@@ -1,0 +1,41 @@
+<!-- OPEN fxLayout -->
+<div  class="container" fxFlexFill fxLayoutAlign="space-around center">
+  <form [formGroup]="signInForm" (ngSubmit)="onSignInFormSubmit()">
+    <mat-card class="card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon svgIcon="supervised_user_outline"></mat-icon>
+        </div>
+        <mat-card-title>Sign-in</mat-card-title>
+        <mat-card-subtitle>Welcome</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="w-full">
+          <input matInput placeholder="Enter your email" formControlName="email" required>
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors?.email">
+              Please enter a valid email address
+            </div>
+            <div *ngIf="email.errors?.required">
+              Email address is required
+            </div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <input matInput placeholder="Enter your password" [type]="passwortHide ? 'password' : 'text'" formControlName="password"
+            required>
+          <mat-icon matSuffix (click)="passwortHide = !passwortHide">{{passwortHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div *ngIf="password.errors?.required">
+              Password is required
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="accent" type="submit" [disabled]="!signInForm.valid">Sign-in</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+<!-- CLOSE fxLayout -->

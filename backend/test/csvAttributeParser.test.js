@@ -551,44 +551,39 @@ describe('csvAttributeParse - getSporePrintColor', function() {
       expect(csvAttributeParser.getSporePrintColor('n')).to.equal(1);
     });
   });
-  describe('with c as parameter', function() {
-    it('should 2 as cinnamon', function() {
-      expect(csvAttributeParser.getSporePrintColor('c')).to.equal(2);
-    });
-  });
   describe('with b as parameter', function() {
     it('should 3 as buff', function() {
-      expect(csvAttributeParser.getSporePrintColor('b')).to.equal(3);
+      expect(csvAttributeParser.getSporePrintColor('b')).to.equal(2);
     });
   });
   describe('with h as parameter', function() {
     it('should 4 as chocolate', function() {
-      expect(csvAttributeParser.getSporePrintColor('h')).to.equal(4);
+      expect(csvAttributeParser.getSporePrintColor('h')).to.equal(3);
     });
   });
   describe('with r as parameter', function() {
     it('should 5 as green', function() {
-      expect(csvAttributeParser.getSporePrintColor('r')).to.equal(5);
+      expect(csvAttributeParser.getSporePrintColor('r')).to.equal(4);
     });
   });
   describe('with o as parameter', function() {
     it('should 6 as orange', function() {
-      expect(csvAttributeParser.getSporePrintColor('o')).to.equal(6);
+      expect(csvAttributeParser.getSporePrintColor('o')).to.equal(5);
     });
   });
   describe('with u as parameter', function() {
     it('should 7 as purple', function() {
-      expect(csvAttributeParser.getSporePrintColor('u')).to.equal(7);
+      expect(csvAttributeParser.getSporePrintColor('u')).to.equal(6);
     });
   });
   describe('with w as parameter', function() {
     it('should 8 as white', function() {
-      expect(csvAttributeParser.getSporePrintColor('w')).to.equal(8);
+      expect(csvAttributeParser.getSporePrintColor('w')).to.equal(7);
     });
   });
   describe('with y as parameter', function() {
     it('should 9 as yellow', function() {
-      expect(csvAttributeParser.getSporePrintColor('y')).to.equal(9);
+      expect(csvAttributeParser.getSporePrintColor('y')).to.equal(8);
     });
   });
   describe('with not accepted parameter', function() {
@@ -642,29 +637,24 @@ describe('csvAttributeParse - getRingType', function() {
       expect(csvAttributeParser.getRingType('l')).to.equal(3);
     });
   });
-  describe('with r as parameter', function() {
-    it('should 4 as green', function() {
-      expect(csvAttributeParser.getRingType('r')).to.equal(4);
-    });
-  });
   describe('with n as parameter', function() {
-    it('should 5 as none', function() {
-      expect(csvAttributeParser.getRingType('n')).to.equal(5);
+    it('should 4 as green', function() {
+      expect(csvAttributeParser.getRingType('n')).to.equal(4);
     });
   });
   describe('with p as parameter', function() {
     it('should 6 as pendant', function() {
-      expect(csvAttributeParser.getRingType('p')).to.equal(6);
+      expect(csvAttributeParser.getRingType('p')).to.equal(5);
     });
   });
   describe('with s as parameter', function() {
     it('should 7 as sheathing', function() {
-      expect(csvAttributeParser.getRingType('s')).to.equal(7);
+      expect(csvAttributeParser.getRingType('s')).to.equal(6);
     });
   });
   describe('with z as parameter', function() {
     it('should 8 as zone', function() {
-      expect(csvAttributeParser.getRingType('z')).to.equal(8);
+      expect(csvAttributeParser.getRingType('z')).to.equal(7);
     });
   });
   describe('with not accepted parameter', function() {

@@ -185,14 +185,12 @@ exports.getStalkRoot = (attributeToParse) => {
     return 2;
   } else if (attributeToParse === 'e') {
     return 3;
-  } else if (attributeToParse === 'g') {
-    return 4;
   } else if (attributeToParse === 'z') {
-    return 5;
+    return 4;
   } else if (attributeToParse === 'r') {
-    return 6;
+    return 5;
   } else if (attributeToParse === '?') {
-    return 7;
+    return 6;
   } else {
     throw new Error(`Parameter (${attributeToParse}) can not be parsed`);
   }

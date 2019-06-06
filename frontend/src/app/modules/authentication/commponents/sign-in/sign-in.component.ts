@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
-  constructor(private fb: FormBuilder,  private _authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private fb: FormBuilder,  private authenticationService: AuthenticationService, private router: Router) { }
 
   /** methods for signIn formgroup */
   get email() {
@@ -36,10 +36,10 @@ export class SignInComponent implements OnInit {
    * function is called when sign in form is submitted
    */
   onSignInFormSubmit() {
-    this._authenticationService.login(this.signInForm.value).subscribe(
+    this.authenticationService.login(this.signInForm.value).subscribe(
       res => {
-        this._authenticationService.storeTokenLocal(res['token']);
-        this.router.navigateByUrl('/dashboard');
+        this.authenticationService.storeTokenLocal(res['token']);
+        this.router.navigateByUrl('/mushroomClassifier');
       },
       err => {
       }

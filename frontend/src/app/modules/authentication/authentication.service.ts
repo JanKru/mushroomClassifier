@@ -19,7 +19,7 @@ export class AuthenticationService {
    * @return observable
    */
   login(authCredentials) {
-    return this.http.post(environment.apiBaseUrl + '/sign-in', authCredentials, this.noAuthHeader);
+    return this.http.post(environment.apiBaseUrl + 'users/authentications/', authCredentials, this.noAuthHeader);
   }
 
   /**

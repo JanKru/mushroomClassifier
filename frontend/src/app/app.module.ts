@@ -10,8 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 /** components */
 import { SignInComponent } from './modules/authentication/commponents/sign-in/sign-in.component';
+import { MushroomClassifierComponent } from './modules/mushroom-classifier/components/mushroom-classifier/mushroom-classifier.component';
+import { MushroomDialogComponent } from '../app/modules/mushroom-classifier/components/mushroom-dialog/mushroom-dialog.component';
 /** routes */
 import { routes } from './app.routes';
+import { mushroomClassifierRoutes } from './modules/mushroom-classifier/mushroomClassifier.routes';
 /** guards & interceptor */
 import { AuthenticationGuard } from './shared/guards/authentication.guard';
 import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor';
@@ -20,6 +23,8 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
   declarations: [
     AppComponent,
     SignInComponent,
+    MushroomClassifierComponent,
+    MushroomDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,7 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot(mushroomClassifierRoutes),
     RouterModule.forRoot(routes), // add as last for '' and '**' navigation
   ],
   providers: [{
@@ -37,6 +43,9 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
     useClass: AuthenticationInterceptor,
     multi: true}, AuthenticationGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    MushroomDialogComponent
+  ],
 })
 export class AppModule { }

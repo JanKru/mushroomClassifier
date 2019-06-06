@@ -1,0 +1,84 @@
+<mat-horizontal-stepper [linear]="isLinear" labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <ng-template matStepLabel>Cap</ng-template>
+
+    <div fxLayout="row wrap">
+      <div fxFlex="100%">
+        <form [formGroup]="capForm" (ngSubmit)="submitHandler()">
+          <mat-form-field appearance="legacy" class="w-full">
+            <mat-select placeholder="Cap shape" formControlName="capShape">
+              <mat-option
+                *ngFor="let info of this.aboutMushroomDataService.getCapShapeInfo().options.letters, index as i"
+                value="{{this.aboutMushroomDataService.getCapShapeInfo().options.letters[i]}}">
+                {{this.aboutMushroomDataService.getCapShapeInfo().options.meanings[i]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="legacy" class="w-full">
+              <mat-select placeholder="Cap surface" formControlName="capSurface">
+                <mat-option
+                  *ngFor="let info of this.aboutMushroomDataService.getCapSurfaceInfo().options.letters, index as i"
+                  value="{{this.aboutMushroomDataService.getCapSurfaceInfo().options.letters[i]}}">
+                  {{this.aboutMushroomDataService.getCapSurfaceInfo().options.meanings[i]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Cap color" formControlName="capColor">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getCapColorInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getCapColorInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getCapColorInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </form>
+      </div>
+
+      <div fxFlex="100%" fxLayoutAlign="end ">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+
+
+
+    </div>
+  </mat-step>
+  <!-- gill-stuff -->
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>Gill</ng-template>
+    <div fxLayout="row wrap">
+      <div fxFlex="100%">
+        <form [formGroup]="gillForm" (ngSubmit)="submitHandler()">
+          <mat-form-field appearance="legacy" class="w-full">
+            <mat-select placeholder="Gill Attachment" formControlName="gillAttachment">
+
+              <mat-option
+                *ngFor="let info of this.aboutMushroomDataService.getGillAttachmentInfo().options.letters, index as i"
+                value="{{this.aboutMushroomDataService.getGillAttachmentInfo().options.letters[i]}}">
+                {{this.aboutMushroomDataService.getGillAttachmentInfo().options.meanings[i]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div fxFlex="100%" fxLayoutAlign="end ">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+
+
+
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Stalk</ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Other</ng-template>
+  </mat-step>
+
+</mat-horizontal-stepper>
+<button (click)="submitAllMushroomForms()" mat-button>Click me!</button>
+

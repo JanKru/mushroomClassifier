@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:4041/',
-  productName: 'Locker'
+  productName: 'Mushroom Classifier'
 };
 
 /*

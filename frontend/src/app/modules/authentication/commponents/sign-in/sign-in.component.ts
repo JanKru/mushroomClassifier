@@ -38,10 +38,13 @@ export class SignInComponent implements OnInit {
   onSignInFormSubmit() {
     this.authenticationService.login(this.signInForm.value).subscribe(
       res => {
+        console.log('res', res)
         this.authenticationService.storeTokenLocal(res['token']);
         this.router.navigateByUrl('/mushroomClassifier');
+        console.log(this.authenticationService.isLoggedIn())
       },
       err => {
+        console.log(err)
       }
     );
   }

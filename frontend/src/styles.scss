@@ -5,6 +5,10 @@
 // Define a mixin that accepts a theme and outputs the color styles for the component.
 @import './customTheme.scss';
 
+.bg-green {
+  background: mat-color($mat-green, 400) !important;
+}
+
 // turns app-root to fullscreen
 .container {
   display: flex;

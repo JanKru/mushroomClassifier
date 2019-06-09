@@ -14,13 +14,7 @@ export class MushroomClassifierComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(MushroomDialogComponent, {
       height: 'auto',
-      width: '700px',
-      // data: {name: this.name, animal: this.animal}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      width: 'auto',
     });
   };
 

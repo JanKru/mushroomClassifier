@@ -10,6 +10,16 @@ const currentMushroomClassifier = {
   currentNN: undefined,
 };
 
+const metaNN = {
+  nNconfig: {
+    hiddenLayers: 200,
+    iterations: 20000,
+    errorThresh: 0.005,
+    learningRate: 0.3,
+    timeout: 1000,
+  },
+  nNInfo: {}
+}
 
 exports.setTrainDataPath = (pathToData) => {
   if (typeof pathToData === 'string' || pathToData instanceof String) {
@@ -52,6 +62,7 @@ exports.learn = () => {
                   currentMushroomClassifier.trainData[0].input
               );*/
               logger.info('NN info: %o', res);
+              metaNN.nNInfo = res;
               if (res.iterations < 150) {
                 logger.warn('number of Iterations is really low, maybe try again');
               }
@@ -72,7 +83,10 @@ exports.predict = (valueToPredict) => {
       const output = currentMushroomClassifier.currentNN.run(
           valueToPredict
       );
-      resolve(output);
+      resolve({
+        output: output,
+        metaNN: metaNN,
+      });
     } else {
       reject(new Error('valueToPredict is undefined'));
     }

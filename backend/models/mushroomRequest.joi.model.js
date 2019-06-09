@@ -5,7 +5,6 @@ const schema = {
       Joi.string().valid(''),
       Joi.date().min('now')
   ).required(),
-  user: Joi.string(),
   mushroomParameter: {
     cap_shape: Joi.string().min(1).max(1).valid('b', 'c', 'x', 'f', 'k', 's'),
     cap_surface: Joi.string().min(1).max(1).valid('f', 'g', 'y', 's'),
@@ -30,6 +29,9 @@ const schema = {
     population: Joi.string().valid('a', 'c', 'n', 's', 'v', 'y'),
     habitat: Joi.string().valid('g', 'l', 'm', 'p', 'u', 'w', 'd'),
   },
+  originRequest: {},
+  predictedValue: {},
+  metaNN: {}
 };
 
 module.exports = {

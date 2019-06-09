@@ -12,9 +12,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignInComponent } from './modules/authentication/commponents/sign-in/sign-in.component';
 import { MushroomClassifierComponent } from './modules/mushroom-classifier/components/mushroom-classifier/mushroom-classifier.component';
 import { MushroomDialogComponent } from '../app/modules/mushroom-classifier/components/mushroom-dialog/mushroom-dialog.component';
+import { MushroomHistroyTableComponent } from '../app/modules/mushroom-history/components/mushroom-histroy-table/mushroom-histroy-table.component';
 /** routes */
 import { routes } from './app.routes';
 import { mushroomClassifierRoutes } from './modules/mushroom-classifier/mushroomClassifier.routes';
+import { mushroomHistoryTableRoutes } from './modules/mushroom-history/mushroom-history-table.routes'
 /** guards & interceptor */
 import { AuthenticationGuard } from './shared/guards/authentication.guard';
 import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor';
@@ -25,6 +27,7 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
     SignInComponent,
     MushroomClassifierComponent,
     MushroomDialogComponent,
+    MushroomHistroyTableComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(mushroomClassifierRoutes),
+    RouterModule.forRoot(mushroomHistoryTableRoutes),
     RouterModule.forRoot(routes), // add as last for '' and '**' navigation
   ],
   providers: [{

@@ -10,25 +10,57 @@ import { MushroomClassifierService } from '../../../../shared/services/mushroomC
   styleUrls: ['./mushroom-dialog.component.scss']
 })
 export class MushroomDialogComponent implements OnInit {
-  capForm: FormGroup;
-  gillForm: FormGroup;
+  private capForm: FormGroup;
+  private gillForm: FormGroup;
+  private stalkForm: FormGroup;
+  private otherForm: FormGroup;
+  private mushroomFormsAreInvalid: boolean;
+  private showParamStepper: boolean;
+  private mushroomPrediction: any; // TDOD: typing... typing in generell
+
   constructor(
     private fb: FormBuilder,
     private aboutMushroomDataService: AboutMushroomDataService,
-    private mushroomClassifierService: MushroomClassifierService
+    private mushroomClassifierService: MushroomClassifierService,
+   
   ) { }
+
+  checkMushroomFormIsInvalid() {
+    // TODO: This can be done better
+    if (
+      this.capForm.status === 'INVALID' &&
+      this.gillForm.status === 'INVALID' &&
+      this.stalkForm.status === 'INVALID' &&
+      this.otherForm.status  === 'INVALID'
+    ) {
+      this.mushroomFormsAreInvalid = true;
+    } else {
+      if (
+        this.capForm.status === 'VALID' &&
+        this.gillForm.status === 'VALID' &&
+        this.stalkForm.status === 'VALID' &&
+        this.otherForm.status  === 'VALID'
+      ) {
+        this.mushroomFormsAreInvalid = false;
+      } else {
+        this.mushroomFormsAreInvalid = true;
+      };
+    };
+  }
 
   submitAllMushroomForms() {
     console.log(this.capForm.value);
     this.mushroomClassifierService.postMushroomData(this.buildReqObj()).subscribe(
       res => {
-        console.log(res);
+        this.showParamStepper = false;
+        this.mushroomPrediction = res;
       },
       err => {
         console.log(err);
       }
     );
   }
+
   buildReqObj() {
     return {
       date: '2019-06-23 06:44:00 +0000',
@@ -37,47 +69,76 @@ export class MushroomDialogComponent implements OnInit {
         cap_shape: this.capForm.value.capShape,
         cap_surface: this.capForm.value.capSurface,
         cap_color: this.capForm.value.capColor,
-        bruises: 't',
-        odor: 'a',
+        bruises: this.otherForm.value.bruises,
+        odor: this.otherForm.value.odor,
         gill_attachment: this.gillForm.value.gillAttachment,
-        gill_spacing: 'c',
-        gill_size: 'b',
-        gill_color: 'k',
-        stalk_shape: 'e',
-        stalk_root: 'b',
-        stalk_surface_above_ring: 'f',
-        stalk_surface_below_ring: 'y',
-        stalk_color_above_ring: 'n',
-        stalk_color_below_ring: 'n',
-        veil_type: 'p',
-        veil_color: 'n',
-        ring_number: 'n',
-        ring_type: 'c',
-        spore_print_color: 'k',
-        population: 'a',
-        habitat: 'g'
+        gill_spacing: this.gillForm.value.gillSpacing,
+        gill_size: this.gillForm.value.gillSize,
+        gill_color: this.gillForm.value.gillColor,
+        stalk_shape: this.stalkForm.value.stalkShape,
+        stalk_root: this.stalkForm.value.stalkRoot,
+        stalk_surface_above_ring: this.stalkForm.value.stalkSurfaceAboveRing,
+        stalk_surface_below_ring: this.stalkForm.value.stalkSurfaceBelowRing,
+        stalk_color_above_ring: this.stalkForm.value.stalkColorAboveRing,
+        stalk_color_below_ring: this.stalkForm.value.stalkColorBelowRing,
+        veil_type: this.otherForm.value.veilType,
+        veil_color: this.otherForm.value.veilColor,
+        ring_number: this.otherForm.value.ringNumber,
+        ring_type: this.otherForm.value.ringType,
+        spore_print_color: this.otherForm.value.sporePrintColor,
+        population: this.otherForm.value.population,
+        habitat: this.otherForm.value.habitat,
       }
     };
   }
 
-
   ngOnInit() {
-    console.log(this.aboutMushroomDataService.getCapShapeInfo());
+    this.showParamStepper = true;
+    this.mushroomFormsAreInvalid = true;
     this.capForm = this.fb.group({
-      capShape: ['', []],
-      capSurface: ['', []],
-      capColor: ['', []]
+      capShape: ['', [Validators.required]],
+      capSurface: ['', [Validators.required]],
+      capColor: ['', [Validators.required]],
+      
     });
     this.gillForm = this.fb.group({
-      gillAttachment: ['', []],
+      gillAttachment: ['', [Validators.required]],
+      gillSpacing: ['', [Validators.required]], 
+      gillSize: ['', [Validators.required]], 
+      gillColor:  ['', [Validators.required]], 
     });
-
-    /** 
+    this.stalkForm = this.fb.group({
+      stalkShape: ['', [Validators.required]],
+      stalkRoot: ['', [Validators.required]],
+      stalkSurfaceAboveRing: ['', [Validators.required]],
+      stalkSurfaceBelowRing: ['', [Validators.required]], 
+      stalkColorAboveRing: ['', [Validators.required]],
+      stalkColorBelowRing: ['', [Validators.required]],
+    });
+    this.otherForm = this.fb.group({
+      bruises: ['', [Validators.required]],
+      odor: ['', [Validators.required]],
+      veilType: ['', [Validators.required]],
+      veilColor: ['', [Validators.required]],
+      ringNumber: ['', [Validators.required]],
+      ringType: ['', [Validators.required]],
+      sporePrintColor: ['', [Validators.required]],
+      population: ['', [Validators.required]],
+      habitat: ['', [Validators.required]]
+    });
     this.capForm.valueChanges.subscribe(result => {
-      this.getFormData();
-      console.log('newMagazine', result);
-
-     });*/
+      console.log(this.otherForm.status, 'other')
+      this.checkMushroomFormIsInvalid();
+  
+    })
+    this.gillForm.valueChanges.subscribe(result => {
+      this.checkMushroomFormIsInvalid();
+    })
+    this.stalkForm.valueChanges.subscribe(result => {
+      this.checkMushroomFormIsInvalid();
+    })
+    this.otherForm.valueChanges.subscribe(result => {
+      this.checkMushroomFormIsInvalid();
+    })
   }
-
 }

@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const mushroomRequestJoi = require('../models/mushroomRequest.joi.model');
 const mushroomClassifierRequestMongoose = require('../models/mushroomClassification.mongoose.model');
+const mushroomClassificationHistory = require('../models/mushroomClassificationHistroy.mongoose.model');
 const mushroomClassifier = require('../mushroomClassifier/mushroomClassifier');
 const logger = require('../config/log');
 
@@ -51,16 +52,39 @@ exports.classifyMushRoom = (req, res) => {
           mushroomClassifier.predict(transformedClassificationReq).then(
               (response) => {
                 logger.info('req %o', response);
+                const classificationHistory = new mushroomClassificationHistory({
+                  originRequest: value,
+                  classificationResponse: {
+                    predictedValue: response.output.class * 100,
+                    metaNN: response.metaNN,
+                  },
+                }).save();
                 res.status(200).json(
                     {
                       originRequest: value,
-                      test: 23235,
-                      predictedValue: response.class,
+                      predictedValue: response.output.class * 100,
+                      metaNN: response.metaNN,
+
                     }
                 );
               }).catch((err) => {
-            console.log(err);
+                res.status(500).json(err);
           });
         }
       });
+};
+
+exports.getMushroomClassifications = (req, res) => {
+  mushroomClassificationHistory.find({}).then(function(classifications) {
+    res.send(classifications);
+  }, function (err) {
+    res.status(500).json(err)
+  });
+  /**
+  mushroomClassificationHistory.find({}, function(err, classifications) {
+
+
+
+    res.send(classifications);
+  });*/
 };

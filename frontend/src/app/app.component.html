@@ -13,6 +13,7 @@
       </mat-nav-list>
       <mat-nav-list *ngIf="this.authenticationService.isLoggedIn()">
         <a mat-list-item routerLink="/mushroomClassifier" routerLinkActive="active">Classify a mushroom</a>
+        <a mat-list-item routerLink="/mushroomHistory" routerLinkActive="active">Classifikation history</a>
       </mat-nav-list>
         <!-- Second dashboard list item is just to fit the sidebar for all pages (ugly)-->
         <mat-nav-list style="visibility: hidden;">

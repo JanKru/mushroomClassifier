@@ -42,6 +42,8 @@ cd ./mushroomClassifier/backend
 NODE_ENV=development
 SERVER_PORT=4041
 MONGO_HOST=mongodb://localhost/mushroomClassifier
+JWT_SECRET=SECRET#1234
+JWT_EXP=40m
 ```
 5. Install NPM packages
 ```sh

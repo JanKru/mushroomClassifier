@@ -31,7 +31,7 @@ const schema = {
   },
   originRequest: {},
   predictedValue: {},
-  metaNN: {}
+  metaNN: {},
 };
 
 module.exports = {

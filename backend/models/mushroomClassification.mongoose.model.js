@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const csvAttributeParser = require('../mushroomClassifier/csvAttributeParser');
 
-const mushroomClassification = new Schema({
+const MushroomClassification = new Schema({
   date: String,
   user: String,
   mushroomParameter: {
@@ -31,7 +31,7 @@ const mushroomClassification = new Schema({
   },
 });
 
-mushroomClassification.methods.getNumberRepresentation =
+MushroomClassification.methods.getNumberRepresentation =
 (objectToTransform) => {
   return {
     cap_shape: csvAttributeParser.getCapShape(objectToTransform['cap_shape']),
@@ -59,4 +59,4 @@ mushroomClassification.methods.getNumberRepresentation =
   };
 };
 
-module.exports = mongoose.model('mushroomClassification', mushroomClassification);
+module.exports = mongoose.model('mushroomClassification', MushroomClassification);

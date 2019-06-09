@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const mushroomRequestJoi = require('../models/mushroomRequest.joi.model');
-const mushroomClassifierRequestMongoose = require('../models/mushroomClassification.mongoose.model');
-const mushroomClassificationHistory = require('../models/mushroomClassificationHistroy.mongoose.model');
+const MushroomClassifierRequestMongoose = require('../models/mushroomClassification.mongoose.model');
+const MushroomClassificationHistory = require('../models/mushroomClassificationHistroy.mongoose.model');
 const mushroomClassifier = require('../mushroomClassifier/mushroomClassifier');
 const logger = require('../config/log');
 
@@ -31,7 +31,6 @@ const testMushroom = {
 };
 
 exports.classifyMushRoom = (req, res) => {
-  console.log(mushroomClassifier.getCurrentMushroomClassifier().trainData[0]);
   Joi.validate(
       req.body,
       mushroomRequestJoi.schema,
@@ -40,49 +39,55 @@ exports.classifyMushRoom = (req, res) => {
           res.status(400).json(error.details[0].message);
         } else {
           logger.debug(testMushroom, '%o testmushroom');
-          const classificationReq = new mushroomClassifierRequestMongoose(
+
+          const classificationReq = new MushroomClassifierRequestMongoose(
               value
           );
-          console.log(classificationReq.getNumberRepresentation(classificationReq.mushroomParameter), 'TRANSFORMATION');
+          let requestId;
+          classificationReq.save(function(err, classificationRequest) {
+            requestId = classificationRequest._id;
+            console.log('dasadsd', requestId);
+            const transformedClassificationReq =
+            classificationReq.getNumberRepresentation(
+                classificationReq.mushroomParameter
+            );
 
-          const transformedClassificationReq =
-          classificationReq.getNumberRepresentation(
-              classificationReq.mushroomParameter
-          );
-          mushroomClassifier.predict(transformedClassificationReq).then(
-              (response) => {
-                logger.info('req %o', response);
-                const classificationHistory = new mushroomClassificationHistory({
-                  originRequest: value,
-                  classificationResponse: {
-                    predictedValue: response.output.class * 100,
-                    metaNN: response.metaNN,
-                  },
-                }).save();
-                res.status(200).json(
-                    {
+            mushroomClassifier.predict(transformedClassificationReq).then(
+                (response) => {
+                  const classificationHistory =
+                    new MushroomClassificationHistory({
                       originRequest: value,
-                      predictedValue: response.output.class * 100,
-                      metaNN: response.metaNN,
+                      originRequestId: requestId,
+                      classificationResponse: {
+                        predictedValue: response.output.class * 100,
+                        metaNN: response.metaNN,
+                      },
+                    });
+                  classificationHistory.save();
+                  res.status(200).json(
+                      {
+                        originRequest: value,
+                        predictedValue: response.output.class * 100,
+                        metaNN: response.metaNN,
 
-                    }
-                );
-              }).catch((err) => {
-                res.status(500).json(err);
+                      }
+                  );
+                }).catch((err) => {
+              res.status(500).json(err);
+            });
           });
         }
       });
 };
 
 exports.getMushroomClassifications = (req, res) => {
-  mushroomClassificationHistory.find({}).then(function(classifications) {
+  MushroomClassificationHistory.find({}).then(function(classifications) {
     res.send(classifications);
-  }, function (err) {
-    res.status(500).json(err)
+  }, function(err) {
+    res.status(500).json(err);
   });
   /**
   mushroomClassificationHistory.find({}, function(err, classifications) {
-
 
 
     res.send(classifications);

@@ -60,7 +60,7 @@ THRESHOLDTOBEPOISONOUS=85
 npm install
 ```
 
-5. Iy you want to run backend: unit test
+5. If you want to run backend: unit test
 ```sh
 npm test
 ```

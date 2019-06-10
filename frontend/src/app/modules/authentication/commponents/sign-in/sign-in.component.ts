@@ -24,18 +24,18 @@ export class SignInComponent implements OnInit {
     return this.signInForm.get('password');
   }
 
-    /** methods for register formgroup */
-    get emailReg() {
-      return this.registerForm.get('emailReg');
-    }
+  /** methods for register formgroup */
+  get emailReg() {
+    return this.registerForm.get('emailReg');
+  }
 
-    get passwordReg() {
-      return this.registerForm.get('passwordReg');
-    }
+  get passwordReg() {
+    return this.registerForm.get('passwordReg');
+  }
 
-    get passwordConfermationReg() {
-      return this.registerForm.get('passwordConfermationReg');
-    }
+  get passwordConfermationReg() {
+    return this.registerForm.get('passwordConfermationReg');
+  }
   private passwortHide: boolean;
   private formError = {
     signInError: false,
@@ -50,8 +50,8 @@ export class SignInComponent implements OnInit {
   });
   registerForm = this.fb.group({
     emailReg: ['', [Validators.required, Validators.email]],
-    passwordReg: ['', Validators.required],
-    passwordConfermationReg: ['', Validators.required],
+    passwordReg: ['', [Validators.required, Validators.minLength(4)]],
+    passwordConfermationReg: ['', [Validators.required, Validators.minLength(4)]],
   });
 
   ngOnInit() {

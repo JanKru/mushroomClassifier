@@ -59,6 +59,11 @@
                     Password is required
                   </div>
                 </mat-error>
+                <mat-error *ngIf="passwordReg.invalid && (passwordReg.dirty || passwordReg.touched)">
+                  <div *ngIf="passwordReg.errors?.minlength">
+                    Password must be at least 4 chars. long
+                  </div>
+                </mat-error>
               </mat-form-field>
               <mat-form-field class="w-full">
                 <input matInput placeholder="Confirm your password" [type]="passwortHide ? 'password' : 'text'"
@@ -68,6 +73,11 @@
                 <mat-error *ngIf="passwordReg.invalid && (passwordReg.dirty || passwordReg.touched)">
                   <div *ngIf="passwordReg.errors?.required">
                     Password is required
+                  </div>
+                </mat-error>
+                <mat-error *ngIf="passwordReg.invalid && (passwordReg.dirty || passwordReg.touched)">
+                  <div *ngIf="passwordReg.errors?.minlength">
+                    Password must be at least 4 chars. long
                   </div>
                 </mat-error>
               </mat-form-field>

@@ -3,14 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: 'First name can\'t be empty',
-  },
-  lastName: {
-    type: String,
-    required: 'Last name can\'t be empty',
-  },
   email: {
     type: String,
     required: 'Email can\'t be empty',
@@ -46,7 +38,6 @@ userSchema.pre('save', function(next) {
 
 // Methods
 userSchema.methods.verifyPassword = function(password) {
-  console.log(bcrypt.compareSync(password, this.password));
   return bcrypt.compareSync(password, this.password);
 };
 

@@ -60,12 +60,12 @@ THRESHOLDTOBEPOISONOUS=85
 npm install
 ```
 
-5. Iy you want to run backend: unit test
+6. Iy you want to run backend: unit test
 ```sh
 npm test
 ```
 
-6. Navigate to the frontend diretory
+7. Navigate to the frontend diretory
 
 ```sh
 cd ../mushroomClassifier/frontend
@@ -75,7 +75,7 @@ cd ../mushroomClassifier/frontend
 npm install
 ```
 
-8. Start the frontend
+9. Start the frontend
 ```sh
 ng serve --open
 ```

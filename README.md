@@ -51,7 +51,7 @@ HIDDEN_LAYERS=[200]
 ITERATIONS=20000
 ERRORTHRESH=0.005
 LEARNING_RATE=0.3
-TIMEOUT=1000
+TIMEOUT=120000
 
 THRESHOLDTOBEPOISONOUS=85
 ```
@@ -59,6 +59,12 @@ THRESHOLDTOBEPOISONOUS=85
 ```sh
 npm install
 ```
+
+5. Iy you want to run backend: unit test
+```sh
+npm test
+```
+
 6. Navigate to the frontend diretory
 
 ```sh
@@ -67,6 +73,11 @@ cd ../mushroomClassifier/frontend
 8. Install NPM packages
 ```sh
 npm install
+```
+
+8. Start the frontend
+```sh
+ng serve --open
 ```
 ## Usage
 

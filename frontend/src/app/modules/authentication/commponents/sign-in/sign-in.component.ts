@@ -40,7 +40,8 @@ export class SignInComponent implements OnInit {
   private formError = {
     signInError: false,
     registerError: false,
-    errorMessage: null
+    errorMessage: null,
+    successfullyRegistered: false,
   };
 
   signInForm = this.fb.group({
@@ -90,7 +91,7 @@ export class SignInComponent implements OnInit {
     };
       this.authenticationService.register(registerCredentials).subscribe(
       res => {
-        this.router.navigateByUrl('/mushroomClassifier');
+        this.formError.successfullyRegistered = true;
       },
       err => {
         this.formError.registerError = true;

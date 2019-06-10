@@ -38,7 +38,7 @@ git clone https://github.com/JanKru/mushroomClassifier.git
 ```sh
 cd ./mushroomClassifier/backend
 ```
-4. Create a .env-file (like the example below)
+3. Create a .env-file (like the example below)
 ```JS
 NODE_ENV=development
 SERVER_PORT=4041
@@ -55,27 +55,27 @@ TIMEOUT=120000
 
 THRESHOLDTOBEPOISONOUS=85
 ```
-5. Install NPM packages
+4. Install NPM packages
 ```sh
 npm install
 ```
 
-6. Iy you want to run backend: unit test
+5. Iy you want to run backend: unit test
 ```sh
 npm test
 ```
 
-7. Navigate to the frontend diretory
+6. Navigate to the frontend diretory
 
 ```sh
 cd ../mushroomClassifier/frontend
 ```
-8. Install NPM packages
+7. Install NPM packages
 ```sh
 npm install
 ```
 
-9. Start the frontend
+8. Start the frontend
 ```sh
 ng serve --open
 ```

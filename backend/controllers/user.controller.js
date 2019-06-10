@@ -22,7 +22,6 @@ module.exports.register = (req, res, next) => {
   });
 };
 module.exports.authenticate = (req, res, next) => {
-  console.log('hi')
   passport.authenticate('local', (err, user, info) => {
       // error from passport middleware
       if (err) return res.status(400).json(err);

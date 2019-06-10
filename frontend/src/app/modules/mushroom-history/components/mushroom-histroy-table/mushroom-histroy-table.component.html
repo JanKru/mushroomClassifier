@@ -1,47 +1,269 @@
-<div  class="container" fxFlexFill fxLayoutAlign="space-around center">
-    <mat-card class="card">
-        <mat-card-header>
-          <div mat-card-avatar>
-          </div>
-          <mat-card-title>History of all mushroom-classifikations</mat-card-title>
-          <mat-card-subtitle>...</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+<div class="container image-mushroomThree" fxFlexFill fxLayoutAlign="space-around center">
+  <mat-card class="m-3">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image-mushroomOne"></div>
+      <mat-card-title>History</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row wrap" fxLayoutAlign="start start">
+        <p fxFlex="100%" class="py-3">See all of your last predictions. If you want to see some details just click on
+          the row in the table.</p>
+        <table *ngIf="dataSource.length > 0; else errMessage" mat-table [dataSource]="dataSource" multiTemplateDataRows
+          class="mat-elevation-z8" fxFlex="100%">
+          <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
+            <th fxFlex mat-header-cell *matHeaderCellDef> {{column}} </th>
+            <td fxFlex mat-cell *matCellDef="let element">
+              <div *ngIf="i === 0">{{element.originRequest.date | date:'long' }}</div>
+              <div *ngIf="i === 1">{{element.classificationResponse.predictedValue | number:'2.2-2'}} %</div>
+            </td>
+          </ng-container>
 
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-              
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-              
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-              
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                </ng-container>
-              
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                </ng-container>
-              
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-              
-        </mat-card-content>
-        <mat-card-actions>
-        </mat-card-actions>
-      </mat-card>
-  </div>
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+              <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div fxLayout="row wrap" fxFlexFill fxLayoutAlign="start">
+                  <mat-accordion fxFlex class="w-full">
+                    <!-- cap -->
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Cap-Parameter
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          input about the mushroom cap
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <mat-list dense>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Cap-shape</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.cap_shape}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Cap-surface</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.cap_surface}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Cap-color</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.cap_color}}</span>
+                          </p>
+                        </mat-list-item>
+                      </mat-list>
+                    </mat-expansion-panel>
+                    <!-- gill -->
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Gill-Parameter
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          input about the mushroom gill
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <mat-list dense>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Attachment</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.gill_attachment}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Spacing</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.gill_spacing}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Size</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.gill_size}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Color</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.gill_color}}</span>
+                          </p>
+                        </mat-list-item>
+                      </mat-list>
+                    </mat-expansion-panel>
+                    <!-- stalk -->
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Stalk-Parameter
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          input about the mushroom stalk
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <mat-list dense>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Shape</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_shape}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Root</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_root}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Surface-above-ring</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_surface_above_ring}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Surface-below-ring</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_surface_below_ring}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Color-above-ring</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_color_above_ring}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Color-below-ring</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_color_below_ring}}</span>
+                          </p>
+                        </mat-list-item>
+                      </mat-list>
+                    </mat-expansion-panel>
+                    <!-- Other -->
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Other-Parameter
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <mat-list dense>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Bruises</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.bruises}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Odor</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.odor}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Veil-type</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.veil_type}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Veil-color</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.stalk_surface_below_ring}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Ringnumber</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.ring_number}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Ringtype</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.ring_tpye}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Spore-print-color</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.spore_print_color}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Population</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.population}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Habitat</h3>
+                          <p matLine>
+                            <span>{{element.originRequest.mushroomParameter.habitat}}</span>
+                          </p>
+                        </mat-list-item>
+                      </mat-list>
+                    </mat-expansion-panel>
+                    <!-- NN -->
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Config of the neural network
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <mat-list dense>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Hidden layers</h3>
+                          <p matLine>
+                            <span>{{element.classificationResponse.metaNN.nNconfig.hiddenLayers}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Iterations</h3>
+                          <p matLine>
+                            <span>{{element.classificationResponse.metaNN.nNconfig.iterations}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">ErrorThresh</h3>
+                          <p matLine>
+                            <span>{{element.classificationResponse.metaNN.nNconfig.errorThresh}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">learningrate</h3>
+                          <p matLine>
+                            <span>{{element.classificationResponse.metaNN.nNconfig.learningRate}}</span>
+                          </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <h3 matLine class="text-gray-500">Completed iterations</h3>
+                          <p matLine>
+                            <span>{{element.classificationResponse.metaNN.nNInfo.iterations}}</span>
+                          </p>
+                        </mat-list-item>
+                      </mat-list>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <ng-template #errMessage>
+          <div fxFlex *ngIf="dataSource.length === 0" class="py-2">
+            <mat-card class="bg-warn">Currently no classification is saved</mat-card>
+          </div>
+        </ng-template>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

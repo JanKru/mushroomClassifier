@@ -9,6 +9,22 @@
   background: mat-color($mat-green, 400) !important;
 }
 
+.bg-warn {
+  background: mat-color($warn) !important;
+}
+
+.bg-primary {
+  background: mat-color($primary) !important;
+}
+
+.bg-accent {
+  background: mat-color($accent) !important;
+}
+
+.color-accent {
+  color: mat-color($mat-green, 400)
+}
+
 // turns app-root to fullscreen
 .container {
   display: flex;
@@ -26,5 +42,15 @@
 
 .example-header-image-mushroomOne {
   background-image: url('assets/image/mushroomsOne.jpg');
+  background-size: cover;
+}
+
+.example-header-image-mushroomTwo {
+  background-image: url('assets/image/mushroom.jpeg');
+  background-size: cover;
+}
+
+.image-mushroomThree {
+  background-image: url('assets/image/mushroomThree.jpeg');
   background-size: cover;
 }

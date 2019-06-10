@@ -23,6 +23,15 @@ export class AuthenticationService {
   }
 
   /**
+   * sends an http-post to nodeserver to register a new user 
+   * @param authCredentials represents a user with email and passwort
+   * @return observable
+   */
+  register(registrationValues) {
+    return this.http.post(environment.apiBaseUrl + 'users/registrations/', registrationValues, this.noAuthHeader);
+  }
+
+  /**
    * stores server created token on local storage
    * @param token jwt token created by nodeserver
    */

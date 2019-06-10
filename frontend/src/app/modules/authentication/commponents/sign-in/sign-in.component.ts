@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 import { MatIconRegistry } from '@angular/material';
 /** own created SERVICES */
 import { AuthenticationService } from '../../authentication.service';
@@ -14,10 +12,7 @@ import { AuthenticationService } from '../../authentication.service';
 })
 export class SignInComponent implements OnInit {
 
-  signInForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-  });
+
   constructor(private fb: FormBuilder,  private authenticationService: AuthenticationService, private router: Router) { }
 
   /** methods for signIn formgroup */
@@ -29,7 +24,37 @@ export class SignInComponent implements OnInit {
     return this.signInForm.get('password');
   }
 
+    /** methods for register formgroup */
+    get emailReg() {
+      return this.registerForm.get('emailReg');
+    }
+
+    get passwordReg() {
+      return this.registerForm.get('passwordReg');
+    }
+
+    get passwordConfermationReg() {
+      return this.registerForm.get('passwordConfermationReg');
+    }
+  private passwortHide: boolean;
+  private formError = {
+    signInError: false,
+    registerError: false,
+    errorMessage: null
+  };
+
+  signInForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
+  registerForm = this.fb.group({
+    emailReg: ['', [Validators.required, Validators.email]],
+    passwordReg: ['', Validators.required],
+    passwordConfermationReg: ['', Validators.required],
+  });
+
   ngOnInit() {
+    this.passwortHide = true;
   }
 
   /**
@@ -38,14 +63,39 @@ export class SignInComponent implements OnInit {
   onSignInFormSubmit() {
     this.authenticationService.login(this.signInForm.value).subscribe(
       res => {
-        console.log('res', res)
+        // tslint:disable-next-line:no-string-literal
         this.authenticationService.storeTokenLocal(res['token']);
         this.router.navigateByUrl('/mushroomClassifier');
-        console.log(this.authenticationService.isLoggedIn())
       },
       err => {
-        console.log(err)
+        this.formError.signInError = true;
+        this.formError.errorMessage = err.error.message;
       }
     );
+  }
+
+  /**
+   * function is called when register form is submitted
+   */
+  onRegisterFormSubmit() {
+    // TODO: create validator for email confermation
+    if (this.registerForm.value.passwordReg !== this.registerForm.value.passwordConfermationReg ) {
+      this.formError.registerError = true;
+      this.formError.errorMessage = 'Check if both passwords are the same';
+    } else if (this.registerForm.value.passwordReg === this.registerForm.value.passwordConfermationReg ) {
+      this.formError.registerError = false;
+      const registerCredentials = {
+      email: this.registerForm.value.emailReg,
+      password: this.registerForm.value.passwordReg
+    };
+      this.authenticationService.register(registerCredentials).subscribe(
+      res => {
+        this.router.navigateByUrl('/mushroomClassifier');
+      },
+      err => {
+        this.formError.registerError = true;
+        this.formError.errorMessage = err.error[0];
+      }
+    ); }
   }
 }

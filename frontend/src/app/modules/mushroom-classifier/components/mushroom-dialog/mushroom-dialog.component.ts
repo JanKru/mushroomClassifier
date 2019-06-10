@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment';
 /** services */
 import { AboutMushroomDataService } from '../../../../shared/services/aboutMushroomData.service';
 import { MushroomClassifierService } from '../../../../shared/services/mushroomClassifier.service';
@@ -49,7 +50,6 @@ export class MushroomDialogComponent implements OnInit {
   }
 
   submitAllMushroomForms() {
-    console.log(this.capForm.value);
     this.mushroomClassifierService.postMushroomData(this.buildReqObj()).subscribe(
       res => {
         this.showParamStepper = false;
@@ -63,8 +63,7 @@ export class MushroomDialogComponent implements OnInit {
 
   buildReqObj() {
     return {
-      date: '2019-06-23 06:44:00 +0000',
-      user: '456698778',
+      date: moment(new Date()).format('YYYY-MM-DD HH:mm Z'),
       mushroomParameter: {
         cap_shape: this.capForm.value.capShape,
         cap_surface: this.capForm.value.capSurface,
@@ -99,7 +98,6 @@ export class MushroomDialogComponent implements OnInit {
       capShape: ['', [Validators.required]],
       capSurface: ['', [Validators.required]],
       capColor: ['', [Validators.required]],
-      
     });
     this.gillForm = this.fb.group({
       gillAttachment: ['', [Validators.required]],
@@ -127,18 +125,16 @@ export class MushroomDialogComponent implements OnInit {
       habitat: ['', [Validators.required]]
     });
     this.capForm.valueChanges.subscribe(result => {
-      console.log(this.otherForm.status, 'other')
       this.checkMushroomFormIsInvalid();
-  
-    })
+    });
     this.gillForm.valueChanges.subscribe(result => {
       this.checkMushroomFormIsInvalid();
-    })
+    });
     this.stalkForm.valueChanges.subscribe(result => {
       this.checkMushroomFormIsInvalid();
-    })
+    });
     this.otherForm.valueChanges.subscribe(result => {
       this.checkMushroomFormIsInvalid();
-    })
+    });
   }
 }

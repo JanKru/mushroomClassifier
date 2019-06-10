@@ -1,31 +1,41 @@
-<mat-horizontal-stepper *ngIf="showParamStepper" linear="true" labelPosition="bottom" #stepper>
-  <!-- cap stuff -->
-  <mat-step [stepControl]="capForm">
-    <ng-template matStepLabel>Cap</ng-template>
-    <div fxLayout="row wrap">
-      <div fxFlex="100%">
-        <form [formGroup]="capForm" (ngSubmit)="submitHandler()">
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Cap-shape" formControlName="capShape">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getCapShapeInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getCapShapeInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getCapShapeInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="capForm.controls.capShape.hasError('required')">Cap-shape is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-              <mat-select placeholder="Cap-surface" formControlName="capSurface">
-                <mat-option
-                  *ngFor="let info of this.aboutMushroomDataService.getCapSurfaceInfo().options.letters, index as i"
-                  value="{{this.aboutMushroomDataService.getCapSurfaceInfo().options.letters[i]}}">
-                  {{this.aboutMushroomDataService.getCapSurfaceInfo().options.meanings[i]}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="capForm.controls.capSurface.hasError('required')">Cap-surface is required for the calculation</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" class="w-full">
+<div fxLayout="row wrap" fxLayoutAlign="start start">
+  <div fxFlex="100" fxFlexFill fxLayoutAlign="end end">
+    <button  mat-button mat-dialog-close tabindex="-1" mat-icon-button aria-label="close dialog icon button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div fxFlex="100">
+    <mat-horizontal-stepper *ngIf="showParamStepper" linear="true" labelPosition="bottom" #stepper>
+      <!-- cap stuff -->
+      <mat-step [stepControl]="capForm">
+        <ng-template matStepLabel>Cap</ng-template>
+        <div fxLayout="row wrap">
+          <div fxFlex="100%">
+            <form [formGroup]="capForm" (ngSubmit)="submitHandler()">
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Cap-shape" formControlName="capShape">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getCapShapeInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getCapShapeInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getCapShapeInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="capForm.controls.capShape.hasError('required')">Cap-shape is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Cap-surface" formControlName="capSurface">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getCapSurfaceInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getCapSurfaceInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getCapSurfaceInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="capForm.controls.capSurface.hasError('required')">Cap-surface is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
                 <mat-select placeholder="Cap-color" formControlName="capColor">
                   <mat-option
                     *ngFor="let info of this.aboutMushroomDataService.getCapColorInfo().options.letters, index as i"
@@ -33,298 +43,343 @@
                     {{this.aboutMushroomDataService.getCapColorInfo().options.meanings[i]}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="capForm.controls.capColor.hasError('required')">Cap-color is required for the calculation</mat-error>
+                <mat-error *ngIf="capForm.controls.capColor.hasError('required')">Cap-color is required for the
+                  calculation</mat-error>
               </mat-form-field>
-        </form>
-      </div>
-      <div fxFlex fxLayoutAlign="start">
-        <button mat-button disabled="{{this.capForm.status === 'INVALID'}}" matStepperNext>Next</button>
-        <button mat-button mat-dialog-close>Close</button>
-        <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}" (click)="submitAllMushroomForms()" mat-button>Classify</button>
-      </div>
-    </div>
-  </mat-step>
-  <!-- gill-stuff -->
-  <mat-step [stepControl]="gillForm">
-    <ng-template matStepLabel>Gill</ng-template>
-    <div fxLayout="row wrap">
-      <div fxFlex="100%">
-        <form [formGroup]="gillForm" (ngSubmit)="submitHandler()">
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Gill-attachment" formControlName="gillAttachment">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getGillAttachmentInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getGillAttachmentInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getGillAttachmentInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="gillForm.controls.gillAttachment.hasError('required')">Gill-attachment is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Gill-spacing" formControlName="gillSpacing">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getGillSpacingInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getGillSpacingInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getGillSpacingInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="gillForm.controls.gillSpacing.hasError('required')">Gill-spacing is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Gill-size" formControlName="gillSize">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getGillSizeInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getGillSizeInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getGillSizeInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="gillForm.controls.gillSize.hasError('required')">Gill-size is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Gill-color" formControlName="gillColor">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getGillColorInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getGillColorInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getGillColorInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="gillForm.controls.gillColor.hasError('required')">Gill-color is required for the calculation</mat-error>
-          </mat-form-field>
-        </form>
-      </div>
-      <div fxFlex="100%" fxLayoutAlign="start">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button disabled="{{this.gillForm.status === 'INVALID'}}" matStepperNext>Next</button>
-        <button mat-button mat-dialog-close>Close</button>
-        <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}" (click)="submitAllMushroomForms()" mat-button>Classify</button>
-      </div>
-    </div>
-  </mat-step>
-  <!-- stalk stuff-->
-  <mat-step [stepControl]="stalkForm">
-    <ng-template matStepLabel>Stalk</ng-template>
-    <div fxLayout="row wrap">
-      <div fxFlex="100%">
-        <form [formGroup]="stalkForm" (ngSubmit)="submitHandler()">
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Stalk-shape" formControlName="stalkShape">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getStalkShapeInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getStalkShapeInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getStalkShapeInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="stalkForm.controls.stalkShape.hasError('required')">Stalk-shape is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Stalk-root" formControlName="stalkRoot">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getStalkRootInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getStalkRootInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getStalkRootInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="stalkForm.controls.stalkRoot.hasError('required')">Stalk-root is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Stalk-surface-above-ring" formControlName="stalkSurfaceAboveRing">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getStalkSurfaceAboveRingInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getStalkSurfaceAboveRingInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getStalkSurfaceAboveRingInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="stalkForm.controls.stalkSurfaceAboveRing.hasError('required')">Stalk-surface-above-ring is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Stalk-surface-below-ring" formControlName="stalkSurfaceBelowRing">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getStalkSurfaceBewlowRingInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getStalkSurfaceBewlowRingInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getStalkSurfaceBewlowRingInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="stalkForm.controls.stalkSurfaceBelowRing.hasError('required')">Stalk-surface-belove-ring is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Stalk-color-above-ring" formControlName="stalkColorAboveRing">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getStalkColorAboveRingInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getStalkColorAboveRingInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getStalkColorAboveRingInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="stalkForm.controls.stalkColorAboveRing.hasError('required')">Stalk-color-above-ring is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Stalk-color-below-ring" formControlName="stalkColorBelowRing">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getStalkColorBelowRingInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getStalkColorBelowRingInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getStalkColorBelowRingInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="stalkForm.controls.stalkColorBelowRing.hasError('required')">Stalk-color-below-ring is required for the calculation</mat-error>
-          </mat-form-field>
-        </form>
-      </div>
-      <div fxFlex="100%" fxLayoutAlign="start">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button disabled="{{this.stalkForm.status === 'INVALID'}}" matStepperNext>Next</button>
-        <button mat-button mat-dialog-close>Close</button>
-        <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}" (click)="submitAllMushroomForms()" mat-button>Classify</button>
-      </div>
-    </div>
-  </mat-step>
-   <!-- other-stuff -->
-  <mat-step [stepControl]="otherForm">
-    <ng-template matStepLabel>Other</ng-template>
-    <div fxLayout="row wrap">
-      <div fxFlex="100%">
-        <form [formGroup]="otherForm" (ngSubmit)="submitHandler()">
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Bruises" formControlName="bruises">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getBruisesInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getBruisesInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getBruisesInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.bruises.hasError('required')">Bruises is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Odor" formControlName="odor">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getOdorInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getOdorInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getOdorInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.odor.hasError('required')">Odor is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Veil-type" formControlName="veilType">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getVeilTypeInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getVeilTypeInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getVeilTypeInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.veilType.hasError('required')">Veil-type is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Veil-color" formControlName="veilColor">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getVeilColorInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getVeilColorInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getVeilColorInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.veilColor.hasError('required')">Veil-color is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Ringnumber" formControlName="ringNumber">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getRingNumberInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getRingNumberInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getRingNumberInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.ringNumber.hasError('required')">Ringnumber is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Ringtype" formControlName="ringType">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getRingTypeInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getRingTypeInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getRingTypeInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.ringType.hasError('required')">Ringtype is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Spore-print-color" formControlName="sporePrintColor">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getSporePrintColorInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getSporePrintColorInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getSporePrintColorInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.sporePrintColor.hasError('required')">Spore-print-color is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Population" formControlName="population">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getSporePopulationInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getSporePopulationInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getSporePopulationInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.population.hasError('required')">Population is required for the calculation</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="w-full">
-            <mat-select placeholder="Habitat" formControlName="habitat">
-              <mat-option
-                *ngFor="let info of this.aboutMushroomDataService.getSporeHabitatInfo().options.letters, index as i"
-                value="{{this.aboutMushroomDataService.getSporeHabitatInfo().options.letters[i]}}">
-                {{this.aboutMushroomDataService.getSporeHabitatInfo().options.meanings[i]}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="otherForm.controls.habitat.hasError('required')">Habitat is required for the calculation</mat-error>
-          </mat-form-field>
-        </form>
-      </div>
-      <div fxFlex="100%" fxLayoutAlign="start">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button mat-dialog-close>Close</button>
-          <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}" (click)="submitAllMushroomForms()" mat-button>Classify</button>
-      </div>  
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+            </form>
+          </div>
+          <div fxFlex fxLayoutAlign="start">
+            <button mat-button disabled="{{this.capForm.status === 'INVALID'}}" matStepperNext>Next</button>
+            <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}"
+              (click)="submitAllMushroomForms()" mat-button>Classify</button>
+          </div>
+        </div>
+      </mat-step>
+      <!-- gill-stuff -->
+      <mat-step [stepControl]="gillForm">
+        <ng-template matStepLabel>Gill</ng-template>
+        <div fxLayout="row wrap">
+          <div fxFlex="100%">
+            <form [formGroup]="gillForm" (ngSubmit)="submitHandler()">
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Gill-attachment" formControlName="gillAttachment">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getGillAttachmentInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getGillAttachmentInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getGillAttachmentInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="gillForm.controls.gillAttachment.hasError('required')">Gill-attachment is required for
+                  the calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Gill-spacing" formControlName="gillSpacing">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getGillSpacingInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getGillSpacingInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getGillSpacingInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="gillForm.controls.gillSpacing.hasError('required')">Gill-spacing is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Gill-size" formControlName="gillSize">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getGillSizeInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getGillSizeInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getGillSizeInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="gillForm.controls.gillSize.hasError('required')">Gill-size is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Gill-color" formControlName="gillColor">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getGillColorInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getGillColorInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getGillColorInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="gillForm.controls.gillColor.hasError('required')">Gill-color is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+          <div fxFlex="100%" fxLayoutAlign="start">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button disabled="{{this.gillForm.status === 'INVALID'}}" matStepperNext>Next</button>
+            <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}"
+              (click)="submitAllMushroomForms()" mat-button>Classify</button>
+          </div>
+        </div>
+      </mat-step>
+      <!-- stalk stuff-->
+      <mat-step [stepControl]="stalkForm">
+        <ng-template matStepLabel>Stalk</ng-template>
+        <div fxLayout="row wrap">
+          <div fxFlex="100%">
+            <form [formGroup]="stalkForm" (ngSubmit)="submitHandler()">
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Stalk-shape" formControlName="stalkShape">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getStalkShapeInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getStalkShapeInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getStalkShapeInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="stalkForm.controls.stalkShape.hasError('required')">Stalk-shape is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Stalk-root" formControlName="stalkRoot">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getStalkRootInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getStalkRootInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getStalkRootInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="stalkForm.controls.stalkRoot.hasError('required')">Stalk-root is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Stalk-surface-above-ring" formControlName="stalkSurfaceAboveRing">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getStalkSurfaceAboveRingInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getStalkSurfaceAboveRingInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getStalkSurfaceAboveRingInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="stalkForm.controls.stalkSurfaceAboveRing.hasError('required')">
+                  Stalk-surface-above-ring is required for the calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Stalk-surface-below-ring" formControlName="stalkSurfaceBelowRing">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getStalkSurfaceBewlowRingInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getStalkSurfaceBewlowRingInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getStalkSurfaceBewlowRingInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="stalkForm.controls.stalkSurfaceBelowRing.hasError('required')">
+                  Stalk-surface-belove-ring is required for the calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Stalk-color-above-ring" formControlName="stalkColorAboveRing">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getStalkColorAboveRingInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getStalkColorAboveRingInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getStalkColorAboveRingInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="stalkForm.controls.stalkColorAboveRing.hasError('required')">Stalk-color-above-ring is
+                  required for the calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Stalk-color-below-ring" formControlName="stalkColorBelowRing">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getStalkColorBelowRingInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getStalkColorBelowRingInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getStalkColorBelowRingInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="stalkForm.controls.stalkColorBelowRing.hasError('required')">Stalk-color-below-ring is
+                  required for the calculation</mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+          <div fxFlex="100%" fxLayoutAlign="start">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button disabled="{{this.stalkForm.status === 'INVALID'}}" matStepperNext>Next</button>
+            <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}"
+              (click)="submitAllMushroomForms()" mat-button>Classify</button>
+          </div>
+        </div>
+      </mat-step>
+      <!-- other-stuff -->
+      <mat-step [stepControl]="otherForm">
+        <ng-template matStepLabel>Other</ng-template>
+        <div fxLayout="row wrap">
+          <div fxFlex="100%">
+            <form [formGroup]="otherForm" (ngSubmit)="submitHandler()">
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Bruises" formControlName="bruises">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getBruisesInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getBruisesInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getBruisesInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.bruises.hasError('required')">Bruises is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Odor" formControlName="odor">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getOdorInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getOdorInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getOdorInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.odor.hasError('required')">Odor is required for the calculation
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Veil-type" formControlName="veilType">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getVeilTypeInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getVeilTypeInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getVeilTypeInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.veilType.hasError('required')">Veil-type is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Veil-color" formControlName="veilColor">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getVeilColorInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getVeilColorInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getVeilColorInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.veilColor.hasError('required')">Veil-color is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Ringnumber" formControlName="ringNumber">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getRingNumberInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getRingNumberInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getRingNumberInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.ringNumber.hasError('required')">Ringnumber is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Ringtype" formControlName="ringType">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getRingTypeInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getRingTypeInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getRingTypeInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.ringType.hasError('required')">Ringtype is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Spore-print-color" formControlName="sporePrintColor">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getSporePrintColorInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getSporePrintColorInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getSporePrintColorInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.sporePrintColor.hasError('required')">Spore-print-color is required
+                  for the calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Population" formControlName="population">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getSporePopulationInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getSporePopulationInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getSporePopulationInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.population.hasError('required')">Population is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="w-full">
+                <mat-select placeholder="Habitat" formControlName="habitat">
+                  <mat-option
+                    *ngFor="let info of this.aboutMushroomDataService.getSporeHabitatInfo().options.letters, index as i"
+                    value="{{this.aboutMushroomDataService.getSporeHabitatInfo().options.letters[i]}}">
+                    {{this.aboutMushroomDataService.getSporeHabitatInfo().options.meanings[i]}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="otherForm.controls.habitat.hasError('required')">Habitat is required for the
+                  calculation</mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+          <div fxFlex="100%" fxLayoutAlign="start">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="accent" disabled="{{this.mushroomFormsAreInvalid}}"
+              (click)="submitAllMushroomForms()" mat-button>Classify</button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
 
-<mat-card class="example-card max-w-full" *ngIf="!showParamStepper">
-    <mat-card-header>
-      <mat-card-title>What does the neuronal network say?</mat-card-title>
-      <mat-card-subtitle>... and can we trust the network?</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-       your mushroom is poisonous with a probability of {{mushroomPrediction.predictedValue}}
-      </p>
-      <h5>Configuration of the neuronal network</h5>
-      <mat-list>
-        <mat-list-item>
-          <h3 class="text-gray-500" matLine>Hidden Layers:</h3>
-          <p matLine>
-            {{mushroomPrediction.metaNN.nNconfig.hiddenLayers}}
-          </p>
-        </mat-list-item>
-      <mat-list-item>
-        <h3 class="text-gray-500" matLine>Max. Iterations:</h3>
-        <p matLine >
-          {{mushroomPrediction.metaNN.nNconfig.iterations}}
-        </p>
-      </mat-list-item>
-      <mat-list-item>
-        <h3 class="text-gray-500" matLine>Error-tresh</h3>
-        <p matLine>
-          {{mushroomPrediction.metaNN.nNconfig.errorThresh}}
-        </p>
-      </mat-list-item>
-      <mat-list-item>
-        <h3 class="text-gray-500" matLine>learningRate</h3>
-        <p matLine>
-          {{mushroomPrediction.metaNN.nNconfig.learningRate}}
-        </p>
-      </mat-list-item>
-      <mat-list-item>
-        <h3 class="text-gray-500" matLine>Really done iterations</h3>
-        <p matLine>
-          {{mushroomPrediction.metaNN.nNInfo.iterations}}
-        </p>
-      </mat-list-item>
-    </mat-list>
-    </mat-card-content>
-  </mat-card>
-  
+    <mat-card fxFlex="100%" [ngClass]="mushroomPrediction.poisonous ? 'bg-warn' : 'bg-green'" fxFlexFill class="example-card max-w-full" *ngIf="!showParamStepper">
+      <mat-card-header>
+        <mat-card-title>What does the neuronal network say?</mat-card-title>
+        <mat-card-subtitle>... and can we trust the network?</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="py-4 text-center">
+            <p class="text-xs">
+                your mushroom is ...
+              </p>
+              <p class="text-4xl" *ngIf="mushroomPrediction.poisonous">
+                <b>Poisonous</b> 
+              </p>
+              <p class="text-4xl" *ngIf="!mushroomPrediction.poisonous">
+                  <b>eatable</b>
+              </p>
+              <p class="text-xs">
+                  (with a probability of {{mushroomPrediction.predictedValue | number:'2.2-2'}}%)
+              </p>
+        </div>
+    
+        
+        <mat-accordion>
+            <mat-expansion-panel [ngClass]="mushroomPrediction.poisonous ? 'bg-warn' : 'bg-green'">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Configuration of the neuronal network
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                  <mat-list-item>
+                    <h3 class="text-gray-500" matLine>Hidden Layers:</h3>
+                    <p matLine>
+                      {{mushroomPrediction.metaNN.nNconfig.hiddenLayers}}
+                    </p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <h3 class="text-gray-500" matLine>Max. Iterations:</h3>
+                    <p matLine>
+                      {{mushroomPrediction.metaNN.nNconfig.iterations}}
+                    </p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <h3 class="text-gray-500" matLine>Error-tresh</h3>
+                    <p matLine>
+                      {{mushroomPrediction.metaNN.nNconfig.errorThresh}}
+                    </p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <h3 class="text-gray-500" matLine>learningRate</h3>
+                    <p matLine>
+                      {{mushroomPrediction.metaNN.nNconfig.learningRate}}
+                    </p>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <h3 class="text-gray-500" matLine>Really done iterations</h3>
+                    <p matLine>
+                      {{mushroomPrediction.metaNN.nNInfo.iterations}}
+                    </p>
+                  </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+          
+    
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

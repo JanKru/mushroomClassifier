@@ -1,9 +1,9 @@
 
-<div class="container w-100" fxLayout="row" fxFlexFill fxLayoutAlign="center center" fxLayoutGap="10px">
-  <div fxFlex fxLayoutAlign="end">
+<div class="container image-mushroomThree" fxLayout="row wrap" fxFlexFill fxLayoutAlign="start center">
+  <div fxFlex fxLayoutAlign="end" class="p-3">
   <mat-card class="example-card">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image-mushroomOne"></div>
+      <div mat-card-avatar class="example-header-image-mushroomTwo"></div>
       <mat-card-title>Classify</mat-card-title>
       <mat-card-subtitle>... your mushrooms</mat-card-subtitle>
     </mat-card-header>
@@ -17,6 +17,22 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<div fxFlex fxLayoutAlign="start center">
+<div fxFlex fxLayoutAlign="start center" class="m-3">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image-mushroomOne"></div>
+          <mat-card-title>Historie </mat-card-title>
+          <mat-card-subtitle>of your classifications</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Have you already classified mushrooms? Then take a look at your classification-historie
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="accent" routerLink="/mushroomHistory">GO TO HSITORY</button>
+        </mat-card-actions>
+      </mat-card>
 </div>
-
+</div>
+   

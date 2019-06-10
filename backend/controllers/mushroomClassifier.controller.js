@@ -4,6 +4,7 @@ const MushroomClassifierRequestMongoose = require('../models/mushroomClassificat
 const MushroomClassificationHistory = require('../models/mushroomClassificationHistroy.mongoose.model');
 const mushroomClassifier = require('../mushroomClassifier/mushroomClassifier');
 const logger = require('../config/log');
+const config = require('../config/config');
 
 const testMushroom = {
   cap_shape: 'b',
@@ -46,7 +47,6 @@ exports.classifyMushRoom = (req, res) => {
           let requestId;
           classificationReq.save(function(err, classificationRequest) {
             requestId = classificationRequest._id;
-            console.log('dasadsd', requestId);
             const transformedClassificationReq =
             classificationReq.getNumberRepresentation(
                 classificationReq.mushroomParameter
@@ -54,6 +54,12 @@ exports.classifyMushRoom = (req, res) => {
 
             mushroomClassifier.predict(transformedClassificationReq).then(
                 (response) => {
+                  let poisonous = true;
+                  if ((response.output.class*100) > config.threshholdToBePoisonous) {
+                    poisonous = true;
+                  } else {
+                    poisonous = false;
+                  }
                   const classificationHistory =
                     new MushroomClassificationHistory({
                       originRequest: value,
@@ -61,6 +67,7 @@ exports.classifyMushRoom = (req, res) => {
                       classificationResponse: {
                         predictedValue: response.output.class * 100,
                         metaNN: response.metaNN,
+                        poisonous: poisonous,
                       },
                     });
                   classificationHistory.save();
@@ -69,7 +76,7 @@ exports.classifyMushRoom = (req, res) => {
                         originRequest: value,
                         predictedValue: response.output.class * 100,
                         metaNN: response.metaNN,
-
+                        poisonous: poisonous,
                       }
                   );
                 }).catch((err) => {

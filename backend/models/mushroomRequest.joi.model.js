@@ -1,10 +1,7 @@
 const Joi = require('joi');
 
 const schema = {
-  date: Joi.alternatives().try(
-      Joi.string().valid(''),
-      Joi.date().min('now')
-  ).required(),
+  date: Joi.date().required(),
   mushroomParameter: {
     cap_shape: Joi.string().min(1).max(1).valid('b', 'c', 'x', 'f', 'k', 's'),
     cap_surface: Joi.string().min(1).max(1).valid('f', 'g', 'y', 's'),

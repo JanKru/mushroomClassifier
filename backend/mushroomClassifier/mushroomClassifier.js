@@ -4,6 +4,7 @@ const fs = require('fs');
 const parse = require('csv-parse');
 const logger = require('../config/log');
 const csvRowParser = require('./csvRowParser');
+const config = require('../config/config');
 const currentMushroomClassifier = {
   trainDataPath: undefined,
   trainData: [],
@@ -18,14 +19,14 @@ const metaNN = {
     learningRate: 0.3,
     timeout: 1000,
   },
-  nNInfo: {}
-}
+  nNInfo: {},
+};
 
 exports.setTrainDataPath = (pathToData) => {
   if (typeof pathToData === 'string' || pathToData instanceof String) {
     currentMushroomClassifier.trainDataPath = pathToData;
   } else {
-    console.log('ERROR', pathToData instanceof String);
+    logger.warn('ERROR', pathToData instanceof String);
     throw new TypeError('pathToData must be typeof string');
   }
 };
@@ -48,13 +49,13 @@ exports.learn = () => {
             );
           }).on('end', function() {
             const net = new brain.NeuralNetwork({
-              hiddenLayers: [200],
+              hiddenLayers: config.nN.hiddenLayers,
             });
             net.trainAsync(currentMushroomClassifier.trainData, {
-              iterations: 20000,
-              errorThresh: 0.005,
-              learningRate: 0.3,
-              timeout: 1000, // 150000
+              iterations: config.nN.iterations,
+              errorThresh: config.nN.errorThresh,
+              learningRate: config.nN.learningRate,
+              timeout: config.nN.timeout, // 150000
             }).then((res) => {
               currentMushroomClassifier.currentNN = net;
               /**

@@ -10,6 +10,12 @@ const envVarsSchema = Joi.object({
   MONGO_PORT: Joi.number().default(27017),
   JWT_SECRET: Joi.string().required(),
   JWT_EXP: Joi.string().required(),
+  HIDDEN_LAYERS: Joi.array().required(),
+  ITERATIONS: Joi.number().required(),
+  ERRORTHRESH: Joi.number().required(),
+  LEARNING_RATE: Joi.number().required(),
+  TIMEOUT: Joi.number().required(),
+  THRESHOLDTOBEPOISONOUS: Joi.number().required(),
 }).unknown().required();
 
 const {
@@ -28,6 +34,14 @@ const config = {
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT,
   },
+  nN: {
+    hiddenLayers: envVars.HIDDEN_LAYERS,
+    iterations: envVars.ITERATIONS,
+    errorThresh: envVars.ERRORTHRESH,
+    learningRate: envVars.LEARNING_RATE,
+    timeout: envVars.TIMEOUT,
+  },
+  threshholdToBePoisonous: envVars.THRESHOLDTOBEPOISONOUS,
 };
 
 module.exports = config;

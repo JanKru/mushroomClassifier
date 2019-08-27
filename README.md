@@ -93,4 +93,5 @@ When your work on Mac your linter may marks the linebreaks. Go to .eslintrc and 
 ## ToDo
 * solve the responsive problem in modal 
 * Capsules the individual modules correctly
+* Write more tests, especially for the neural network. Possibly train with a smaller amount of data first and then test it
  

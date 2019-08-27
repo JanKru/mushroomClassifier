@@ -6,7 +6,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-
+* [toDo](#ToDo)
 
 ## About The Project
 
@@ -89,3 +89,8 @@ When your work on Mac your linter may marks the linebreaks. Go to .eslintrc and 
 ```sh
  "linebreak-style": ["error", "unix"]
  ```
+ 
+## ToDo
+* solve the responsive problem in modal 
+* Capsules the individual modules correctly
+ 

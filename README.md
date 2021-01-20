@@ -79,6 +79,12 @@ npm install
 ```sh
 ng serve --open
 ```
+
+9. Start the backend (backend dir)
+```sh
+node index.js
+```
+10. Open Webpage and register a new user
 ## Usage
 
 Start the server (node index.js) and frontend (ng serve --open) 
